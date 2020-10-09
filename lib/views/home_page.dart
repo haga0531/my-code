@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycode/views/my_page.dart';
 
 class HomePage extends StatefulWidget {
   final String uid;
@@ -9,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
+  int _selectIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +18,24 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('ホーム'),
       ),
-      body: Text('ほむ'),
-      bottomNavigationBar:
-          BottomNavigationBar(currentIndex: _currentIndex, items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle), title: Text('My Page')),
-      ]),
+      body: Center(
+        child: Text('home'),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectIndex,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle), title: Text('My Page')),
+        ],
+        onTap: (int index) {
+          if (index == 0) {
+            Navigator.of(context).pushReplacementNamed('/home');
+          } else if (index == 1) {
+            Navigator.of(context).pushReplacementNamed('/mypage');
+          }
+        },
+      ),
     );
   }
 }
