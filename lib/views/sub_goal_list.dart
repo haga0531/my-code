@@ -8,17 +8,22 @@ class SubGoalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Container(
       child: Column(
         children: subGoalList != null
             ? subGoalList.map((e) {
                 return Card(
-                  child: Row(
-                    children: [
-                      Text(e.title),
-                      Text(DateFormat('yyyy-MM-dd')
-                          .format(DateTime.parse(e.date))),
-                    ],
+                  margin: const EdgeInsets.all(5),
+                  child: Container(
+                    width: 400,
+                    height: 100,
+                    child: Row(
+                      children: [
+                        Text(e.title),
+                        Text(DateFormat('yyyy-MM-dd')
+                            .format(DateTime.parse(e.date))),
+                      ],
+                    ),
                   ),
                 );
               }).toList()

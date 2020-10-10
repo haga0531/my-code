@@ -12,7 +12,8 @@ class _AddSubGoalState extends State<AddSubGoal> {
   Function addGoal;
   _AddSubGoalState(this.addGoal);
   var _pickedDate = '締め切り';
-  final goalInputController = TextEditingController();
+  final subGoalInputController = TextEditingController();
+  String _error;
 
   Future<void> _selectDatee(BuildContext context) async {
     final DateTime pickedDatee = await showDatePicker(
@@ -21,7 +22,6 @@ class _AddSubGoalState extends State<AddSubGoal> {
         firstDate: DateTime(2020, 1),
         lastDate: new DateTime.now().add(new Duration(days: 360)),
         locale: const Locale('ja'));
-    // final date = DateFormat('yyyy/HH/mm').format(pickedDate);
     if (pickedDatee != null) {
       setState(() {
         _pickedDate = pickedDatee.toString();
@@ -29,15 +29,48 @@ class _AddSubGoalState extends State<AddSubGoal> {
     }
   }
 
-  addGoadForm() {}
+  Widget showAlert() {
+    if (_error != null) {
+      return Container(
+        color: Colors.amberAccent,
+        width: double.infinity,
+        padding: EdgeInsets.all(8),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Icon(Icons.error_outline),
+            ),
+            Expanded(
+                child: Text(
+              _error,
+              maxLines: 3,
+            )),
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    setState(() {
+                      _error = null;
+                    });
+                  }),
+            )
+          ],
+        ),
+      );
+    }
+    return SizedBox();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        showAlert(),
         Container(
           child: TextFormField(
-            controller: goalInputController,
+            controller: subGoalInputController,
             decoration:
                 InputDecoration(labelText: '中間ゴールを決めましょう', hintText: '教科書1週'),
           ),
@@ -69,8 +102,15 @@ class _AddSubGoalState extends State<AddSubGoal> {
                 color: Colors.white,
               ),
               onPressed: () {
-                addGoal(goalInputController.text, _pickedDate);
-                goalInputController.clear();
+                if (subGoalInputController.text == '' ||
+                    _pickedDate == '締め切り') {
+                  setState(() {
+                    _error = 'ゴールと締め切りを決めてください';
+                  });
+                  return;
+                }
+                addGoal(subGoalInputController.text, _pickedDate);
+                subGoalInputController.clear();
                 _pickedDate = '締め切り';
               },
             ),
