@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mycode/services/api.dart';
+import 'package:mycode/views/add_goal_page.dart';
 import 'package:mycode/views/home_page.dart';
 import 'package:mycode/views/my_page.dart';
 import 'package:mycode/views/signup_page.dart';
@@ -14,13 +16,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('ja'),
+      ],
       theme: ThemeData(
           primaryColor: Colors.blueGrey[800],
           visualDensity: VisualDensity.comfortable),
       home: HomeController(),
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => HomePage(),
-        '/mypage': (BuildContext context) => MyPage()
+        '/mypage': (BuildContext context) => MyPage(),
+        '/add': (BuildContext context) => AddGoalPage(),
       },
     );
   }

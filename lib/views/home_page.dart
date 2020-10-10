@@ -21,6 +21,10 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Text('home'),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).pushNamed('/add'),
+        child: Icon(Icons.add),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectIndex,
         items: [
