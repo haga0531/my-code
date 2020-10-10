@@ -27,8 +27,7 @@ class Api {
       _auth.onAuthStateChanged.map((FirebaseUser user) => user?.uid);
 
   Future<FirebaseUser> getCurrentUser() async {
-    FirebaseUser currentUser;
-    currentUser = await _auth.currentUser();
+    FirebaseUser currentUser = await _auth.currentUser();
     return currentUser;
   }
 
@@ -37,5 +36,17 @@ class Api {
     DocumentSnapshot docSnapshot =
         await _firestore.collection('users').document('${user.uid}').get();
     return docSnapshot;
+  }
+
+  // fetch all goals
+  Future<List> fetchAllGoals(FirebaseUser currentUser) async {
+    FirebaseUser currentUser = await _auth.currentUser();
+    QuerySnapshot goalDocs = await _firestore
+        .collection('goals')
+        .where('userId', isEqualTo: currentUser.uid)
+        .getDocuments();
+
+    List<DocumentSnapshot> goalList = goalDocs.documents;
+    return goalList;
   }
 }

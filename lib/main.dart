@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       ],
       theme: ThemeData(
           primaryColor: Colors.blueGrey[800],
+          scaffoldBackgroundColor: Colors.grey[200],
           visualDensity: VisualDensity.comfortable),
       home: HomeController(),
       routes: <String, WidgetBuilder>{

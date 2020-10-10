@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycode/views/calendar.dart';
 import 'package:mycode/views/my_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,9 +20,10 @@ class _HomePageState extends State<HomePage> {
         title: Text('ホーム'),
       ),
       body: Center(
-        child: Text('home'),
+        child: Calendar(),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () => Navigator.of(context).pushNamed('/add'),
         child: Icon(Icons.add),
       ),
